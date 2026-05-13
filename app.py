@@ -21,6 +21,10 @@ from flask_cors import CORS
 from PIL import Image, ImageOps
 import tensorflow as tf
 from tensorflow import keras
+# At the top of app.py, before loading the model:
+if not os.path.exists(MODEL_PATH):
+    print("Model not found — training now...")
+    os.system("python train.py")
 
 # ─── Config ───────────────────────────────────────────────────────────────────
 MODEL_PATH  = os.environ.get("MODEL_PATH", "digit_model.keras")
@@ -130,4 +134,5 @@ def index():
 # ─── Entry Point ──────────────────────────────────────────────────────────────
 if __name__ == "__main__":
     log.info(f"Starting server on {HOST}:{PORT}")
-    app.run(host=HOST, port=PORT, debug=DEBUG)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
