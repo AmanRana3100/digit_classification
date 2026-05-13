@@ -21,7 +21,8 @@ from flask_cors import CORS
 from PIL import Image, ImageOps
 import tensorflow as tf
 from tensorflow import keras
-# At the top of app.py, before loading the model:
+
+MODEL_PATH = "digit_model.h5"
 if not os.path.exists(MODEL_PATH):
     print("Model not found — training now...")
     os.system("python train.py")
